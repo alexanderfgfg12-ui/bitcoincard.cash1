@@ -1,1004 +1,788 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InstaSwap - Private Crypto Swaps</title>
-<meta name="description" content="Privacy-first cross-chain DEX. Swap, perps, spot & tokenized stocks on 68+ chains. No KYC.">
-<meta property="og:title" content="InstaSwap - Private Crypto Swaps">
-<meta property="og:description" content="Privacy-first cross-chain DEX on 68+ chains. No KYC.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-:root {
-  --bg: #0a0e1a;
-  --surface: #131826;
-  --accent: #00d4aa;
-  --accent-2: #5b6cff;
-  --text: #e8ecf4;
-  --muted: #8b95a8;
-}
+  <title>BitcoinCard.cash | Crypto Swap</title>
+  <meta name="description" content="Explore cryptocurrency swaps through InstaSwap on BitcoinCard.cash. Review supported assets, exchange rates and transaction details before trading.">
+  <meta name="theme-color" content="#080d12">
 
-body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-}
+  <meta property="og:title" content="BitcoinCard.cash | Crypto Swap">
+  <meta property="og:description" content="Explore cryptocurrency swaps through InstaSwap.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bitcoincard.cash">
 
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='85'%3E₿%3C/text%3E%3C/svg%3E">
 
-.lang-bar {
-  background: rgba(19, 24, 38, 0.95);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 8px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-}
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080d12;
+      --surface: #101923;
+      --surface2: #15212c;
+      --border: #253542;
+      --text: #f1f6fa;
+      --muted: #9eafbd;
+      --green: #35d39a;
+      --blue: #66a8ff;
+      --radius: 20px;
+    }
 
-.lang-bar .container { display: flex; justify-content: flex-end; }
+    * { box-sizing: border-box; }
 
-#langSelect {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s;
-}
+    html { scroll-behavior: smooth; }
 
-#langSelect:hover, #langSelect:focus { border-color: var(--accent); }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% -15%, #16352e 0, transparent 48%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI",
+                   Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
 
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-  background: radial-gradient(ellipse at top, rgba(91,108,255,0.25), transparent 70%);
-}
+    a { color: inherit; }
 
-.hero h1 { font-size: 3.5rem; margin-bottom: 16px; }
-.tagline { font-size: 1.3rem; color: var(--muted); margin-bottom: 40px; }
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin-inline: auto;
+    }
 
-.cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,13,18,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
 
-.btn {
-  padding: 14px 32px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.05rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: inline-block;
-}
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -.4px;
+    }
 
-.btn-secondary {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.1);
-}
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--green);
+      color: #062016;
+      font-size: 1.5rem;
+    }
 
-.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,170,0.3); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-section { padding: 80px 20px; }
-h2 { font-size: 2.2rem; margin-bottom: 40px; text-align: center; }
+    select {
+      max-width: 145px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 22px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .2s, opacity .2s;
+    }
 
-.card {
-  background: var(--surface);
-  padding: 32px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: border-color 0.3s;
-}
+    .btn:hover { transform: translateY(-2px); }
 
-.card:hover { border-color: var(--accent); }
-.card h3 { margin-bottom: 12px; font-size: 1.2rem; }
-.card p { color: var(--muted); }
+    .btn-primary {
+      background: var(--green);
+      color: #062016;
+    }
 
-.product-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
+    .btn-secondary {
+      background: var(--surface2);
+      color: var(--text);
+      border-color: var(--border);
+    }
 
-.product-link {
-  background: var(--surface);
-  padding: 32px;
-  border-radius: 16px;
-  text-decoration: none;
-  color: var(--text);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: all 0.3s;
-  text-align: center;
-}
+    .hero {
+      padding: 90px 0 68px;
+      text-align: center;
+    }
 
-.product-link:hover {
-  border-color: var(--accent-2);
-  transform: translateY(-4px);
-}
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 13px;
+      border: 1px solid #285849;
+      border-radius: 99px;
+      color: var(--green);
+      background: #10251f;
+      font-size: .86rem;
+      font-weight: 700;
+    }
 
-.product-link span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
-.product-link p { color: var(--muted); font-size: 0.95rem; }
+    h1 {
+      margin: 24px 0 16px;
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.12;
+      letter-spacing: -2px;
+    }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 24px;
-  text-align: center;
-  background: var(--surface);
-  border-radius: 20px;
-  margin: 40px auto;
-  max-width: 1060px;
-  padding: 40px 20px;
-}
+    .gradient {
+      color: var(--green);
+    }
 
-.stat strong { display: block; font-size: 1.8rem; color: var(--accent); }
-.stat span { color: var(--muted); font-size: 0.9rem; }
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.4vw, 1.2rem);
+    }
 
-footer {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
 
-footer code { background: var(--surface); padding: 2px 8px; border-radius: 6px; }
+    .trust-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: .86rem;
+    }
 
-html[dir="rtl"] .lang-bar .container { justify-content: flex-start; }
+    section { padding: 58px 0; }
 
-@media (max-width: 640px) {
-  .hero { padding: 60px 20px; }
-  .hero h1 { font-size: 2.2rem; }
-  .tagline { font-size: 1.05rem; }
-  h2 { font-size: 1.6rem; }
-  .btn { padding: 12px 24px; font-size: 0.95rem; }
-  section { padding: 50px 20px; }
-}
-</style>
+    .section-head {
+      max-width: 700px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.25;
+    }
+
+    .section-head p,
+    .muted { color: var(--muted); }
+
+    .swap-panel {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: clamp(20px, 5vw, 38px);
+      border: 1px solid #2b4a40;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #12231f, #101923 65%);
+      box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    }
+
+    .swap-panel h3 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+    }
+
+    .swap-panel > p {
+      margin-top: 0;
+      color: var(--muted);
+    }
+
+    .widget-placeholder {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px dashed #416458;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .widget-placeholder p {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: #19362e;
+      font-size: 1.35rem;
+    }
+
+    .card h3 { margin: 0 0 8px; }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .products .card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .products .btn {
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .notice {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #0e161e;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    footer {
+      margin-top: 45px;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links a { color: var(--text); }
+
+    html[dir="rtl"] body { text-align: right; }
+    html[dir="rtl"] .section-head { text-align: center; }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding: 65px 0 45px; }
+      section { padding: 42px 0; }
+      .nav { min-height: 68px; }
+      .brand { font-size: .95rem; }
+      .brand-icon { width: 36px; height: 36px; }
+      .nav-right .btn { display: none; }
+      h1 { letter-spacing: -1px; }
+    }
+  </style>
 </head>
+
 <body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="BitcoinCard.cash home">
+        <span class="brand-icon">₿</span>
+        <span>BitcoinCard<span class="gradient">.cash</span></span>
+      </a>
 
-<div class="lang-bar">
-  <div class="container">
-    <select id="langSelect" aria-label="Language">
-      <option value="ar">🇸🇦 العربية</option>
-      <option value="en">🇬🇧 English</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="ru">🇷🇺 Русский</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="ja">🇯🇵 日本語</option>
-      <option value="ko">🇰🇷 한국어</option>
-      <option value="tr">🇹🇷 Türkçe</option>
-      <option value="pt">🇵🇹 Português</option>
-      <option value="hi">🇮🇳 हिन्दी</option>
-      <option value="ur">🇵🇰 اردو</option>
-      <option value="fa">🇮🇷 فارسی</option>
-      <option value="id">🇮🇩 Indonesia</option>
-      <option value="it">🇮🇹 Italiano</option>
-      <option value="nl">🇳🇱 Nederlands</option>
-      <option value="pl">🇵🇱 Polski</option>
-      <option value="vi">🇻🇳 Tiếng Việt</option>
-      <option value="th">🇹🇭 ไทย</option>
-      <option value="uk">🇺🇦 Українська</option>
-      <option value="he">🇮🇱 עברית</option>
-    </select>
-  </div>
-</div>
-
-<header class="hero">
-  <div class="container">
-    <h1 data-i18n="hero.title">🔒 InstaSwap</h1>
-    <p class="tagline" data-i18n="hero.tagline">Private cross-chain swaps on 68+ chains — No KYC, non-custodial</p>
-    <div class="cta-group">
-      <a href="https://instaswap.com/?affiliate=0X0PUTVJ" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero.cta1">Start Swapping →</a>
-      <a href="https://app.instaswap.com/?affiliate=0X0PUTVJ" class="btn btn-secondary" target="_blank" rel="noopener" data-i18n="hero.cta2">Open App</a>
+      <div class="nav-right">
+        <select id="langSelect" aria-label="Choose language">
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+        </select>
+        <a class="btn btn-primary"
+           href="https://app.instaswap.com/?affiliate=0X0PUTVJ"
+           target="_blank" rel="nofollow sponsored noopener"
+           data-i18n="nav.cta">Open Swap ↗</a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<section class="features container">
-  <h2 data-i18n="features.title">Why InstaSwap?</h2>
-  <div class="grid">
-    <div class="card"><h3 data-i18n="features.f1.t">🛡️ Non-custodial</h3><p data-i18n="features.f1.d">Your keys, your crypto. No accounts, every trade settles on-chain.</p></div>
-    <div class="card"><h3 data-i18n="features.f2.t">🌐 68 Chains</h3><p data-i18n="features.f2.d">Swap BTC, ETH, XMR, SOL natively across 68 chains without wrapping.</p></div>
-    <div class="card"><h3 data-i18n="features.f3.t">⚡ Best Rates</h3><p data-i18n="features.f3.d">Orders routed via THORChain, Chainflip & 10+ venues for deepest liquidity.</p></div>
-    <div class="card"><h3 data-i18n="features.f4.t">🕵️ Full Privacy</h3><p data-i18n="features.f4.d">Secured by ZK proofs and confidential settlement. No KYC.</p></div>
-    <div class="card"><h3 data-i18n="features.f5.t">📈 Advanced Trading</h3><p data-i18n="features.f5.d">Spot, perpetuals up to 40x, and tokenized stocks like Apple & Tesla.</p></div>
-    <div class="card"><h3 data-i18n="features.f6.t">💸 Split Payments</h3><p data-i18n="features.f6.d">One deposit, up to 100 payouts to different wallets confidentially.</p></div>
-  </div>
-</section>
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <span class="eyebrow" data-i18n="hero.eyebrow">
+          YOUR CRYPTO. YOUR CHOICE.
+        </span>
 
-<section class="products container">
-  <h2 data-i18n="products.title">Products</h2>
-  <div class="product-links">
-    <a href="https://instaswap.com/?affiliate=0X0PUTVJ" target="_blank" rel="noopener" class="product-link">
-      <span>💱</span>
-      <h3 data-i18n="products.p1.t">Instant Swap</h3>
-      <p data-i18n="products.p1.d">Swap 10,000+ assets across 68 chains</p>
-    </a>
-    <a href="https://app.instaswap.com/?affiliate=0X0PUTVJ" target="_blank" rel="noopener" class="product-link">
-      <span>📱</span>
-      <h3 data-i18n="products.p2.t">Web App</h3>
-      <p data-i18n="products.p2.d">Easy interface for swaps and payments</p>
-    </a>
-    <a href="https://trade.instaswap.com/?ref=0X0PUTVJ" target="_blank" rel="noopener" class="product-link">
-      <span>📊</span>
-      <h3 data-i18n="products.p3.t">Trading Platform</h3>
-      <p data-i18n="products.p3.d">Spot, perpetuals, and tokenized stocks</p>
-    </a>
-  </div>
-</section>
+        <h1>
+          <span data-i18n="hero.line1">Explore crypto</span><br>
+          <span class="gradient" data-i18n="hero.line2">swaps with ease.</span>
+        </h1>
 
-<section class="stats container">
-  <div class="stat"><strong>$2.04B+</strong><span data-i18n="stats.s1">Volume settled</span></div>
-  <div class="stat"><strong>68</strong><span data-i18n="stats.s2">Chains live</span></div>
-  <div class="stat"><strong>~21 min</strong><span data-i18n="stats.s3">Avg settlement</span></div>
-  <div class="stat"><strong>8+ years</strong><span data-i18n="stats.s4">In the market</span></div>
-</section>
+        <p data-i18n="hero.description">
+          Discover cryptocurrency exchange options through InstaSwap.
+          Compare the available transaction details before confirming a swap.
+        </p>
 
-<footer>
-  <div class="container">
-    <p data-i18n="footer.disclaimer">⚠️ Disclaimer: Crypto trading carries risk. This is an affiliate marketing page.</p>
-    <p>© 2025 — <span data-i18n="footer.ref">Affiliate code</span>: <code>0X0PUTVJ</code></p>
-  </div>
-</footer>
+        <div class="actions">
+          <a class="btn btn-primary"
+             href="https://instaswap.com/?affiliate=0X0PUTVJ"
+             target="_blank" rel="nofollow sponsored noopener"
+             data-i18n="hero.primary">Explore Swaps ↗</a>
 
-<script>
-const translations = {
-  ar: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "تبادل مشفر خاص عبر 68+ شبكة — بدون KYC، بدون حفظ أصول",
-    "hero.cta1": "ابدأ التبادل الآن ←",
-    "hero.cta2": "افتح التطبيق",
-    "features.title": "لماذا InstaSwap؟",
-    "features.f1.t": "🛡️ غير احتجازي",
-    "features.f1.d": "مفاتيحك بيدك. لا حسابات، كل صفقة تُسوَّى على السلسلة.",
-    "features.f2.t": "🌐 68 شبكة",
-    "features.f2.d": "بدّل BTC و ETH و XMR و SOL أصليًا عبر 68 شبكة دون تغليف.",
-    "features.f3.t": "⚡ أفضل الأسعار",
-    "features.f3.d": "توجيه عبر THORChain و Chainflip و 10+ منصات لأعمق سيولة.",
-    "features.f4.t": "🕵️ خصوصية كاملة",
-    "features.f4.d": "محمي بإثباتات ZK وتسوية سرية. بدون KYC.",
-    "features.f5.t": "📈 تداول متقدم",
-    "features.f5.d": "سبوت، عقود دائمة حتى 40x، وأسهم مرمزة مثل Apple و Tesla.",
-    "features.f6.t": "💸 مدفوعات مقسمة",
-    "features.f6.d": "إيداع واحد، حتى 100 دفعة لمحافظ مختلفة بسرية تامة.",
-    "products.title": "المنتجات",
-    "products.p1.t": "التبادل الفوري",
-    "products.p1.d": "بدّل بين 10,000+ أصل عبر 68 شبكة",
-    "products.p2.t": "تطبيق الويب",
-    "products.p2.d": "واجهة سهلة للتبادل والمدفوعات",
-    "products.p3.t": "منصة التداول",
-    "products.p3.d": "سبوت، عقود دائمة، وأسهم مرمزة",
-    "stats.s1": "حجم مُسوَّى",
-    "stats.s2": "شبكة مدعومة",
-    "stats.s3": "متوسط التسوية",
-    "stats.s4": "في السوق",
-    "footer.disclaimer": "⚠️ إخلاء مسؤولية: التداول بالعملات المشفرة يحمل مخاطر. هذه صفحة تسويق بالعمولة.",
-    "footer.ref": "رمز الإحالة"
-  },
-  en: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Private cross-chain swaps on 68+ chains — No KYC, non-custodial",
-    "hero.cta1": "Start Swapping →",
-    "hero.cta2": "Open App",
-    "features.title": "Why InstaSwap?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Your keys, your crypto. No accounts, every trade settles on-chain.",
-    "features.f2.t": "🌐 68 Chains",
-    "features.f2.d": "Swap BTC, ETH, XMR, SOL natively across 68 chains without wrapping.",
-    "features.f3.t": "⚡ Best Rates",
-    "features.f3.d": "Orders routed via THORChain, Chainflip & 10+ venues for deepest liquidity.",
-    "features.f4.t": "🕵️ Full Privacy",
-    "features.f4.d": "Secured by ZK proofs and confidential settlement. No KYC.",
-    "features.f5.t": "📈 Advanced Trading",
-    "features.f5.d": "Spot, perpetuals up to 40x, and tokenized stocks like Apple & Tesla.",
-    "features.f6.t": "💸 Split Payments",
-    "features.f6.d": "One deposit, up to 100 payouts to different wallets confidentially.",
-    "products.title": "Products",
-    "products.p1.t": "Instant Swap",
-    "products.p1.d": "Swap 10,000+ assets across 68 chains",
-    "products.p2.t": "Web App",
-    "products.p2.d": "Easy interface for swaps and payments",
-    "products.p3.t": "Trading Platform",
-    "products.p3.d": "Spot, perpetuals, and tokenized stocks",
-    "stats.s1": "Volume settled",
-    "stats.s2": "Chains live",
-    "stats.s3": "Avg settlement",
-    "stats.s4": "In the market",
-    "footer.disclaimer": "⚠️ Disclaimer: Crypto trading carries risk. This is an affiliate marketing page.",
-    "footer.ref": "Affiliate code"
-  },
-  fr: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Échanges privés cross-chain sur 68+ réseaux — Sans KYC, non-custodial",
-    "hero.cta1": "Commencer →",
-    "hero.cta2": "Ouvrir l'app",
-    "features.title": "Pourquoi InstaSwap ?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Vos clés, votre crypto. Pas de comptes, tout se règle on-chain.",
-    "features.f2.t": "🌐 68 Réseaux",
-    "features.f2.d": "Échangez BTC, ETH, XMR, SOL nativement sur 68 réseaux.",
-    "features.f3.t": "⚡ Meilleurs taux",
-    "features.f3.d": "Routage via THORChain, Chainflip et 10+ plateformes.",
-    "features.f4.t": "🕵️ Confidentialité totale",
-    "features.f4.d": "Sécurisé par preuves ZK et règlement confidentiel. Sans KYC.",
-    "features.f5.t": "📈 Trading avancé",
-    "features.f5.d": "Spot, perpétuels jusqu'à 40x, actions tokenisées.",
-    "features.f6.t": "💸 Paiements fractionnés",
-    "features.f6.d": "Un dépôt, jusqu'à 100 paiements confidentiels.",
-    "products.title": "Produits",
-    "products.p1.t": "Échange instantané",
-    "products.p1.d": "Échangez 10 000+ actifs sur 68 réseaux",
-    "products.p2.t": "App Web",
-    "products.p2.d": "Interface simple pour échanges et paiements",
-    "products.p3.t": "Plateforme de trading",
-    "products.p3.d": "Spot, perpétuels et actions tokenisées",
-    "stats.s1": "Volume réglé",
-    "stats.s2": "Réseaux actifs",
-    "stats.s3": "Règlement moyen",
-    "stats.s4": "Sur le marché",
-    "footer.disclaimer": "⚠️ Avertissement : Le trading crypto comporte des risques. Page d'affiliation.",
-    "footer.ref": "Code d'affiliation"
-  },
-  es: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Intercambios privados cross-chain en 68+ redes — Sin KYC, no custodial",
-    "hero.cta1": "Empezar →",
-    "hero.cta2": "Abrir app",
-    "features.title": "¿Por qué InstaSwap?",
-    "features.f1.t": "🛡️ No custodial",
-    "features.f1.d": "Tus claves, tu cripto. Sin cuentas, todo se liquida on-chain.",
-    "features.f2.t": "🌐 68 Redes",
-    "features.f2.d": "Intercambia BTC, ETH, XMR, SOL nativamente en 68 redes.",
-    "features.f3.t": "⚡ Mejores tasas",
-    "features.f3.d": "Rutas vía THORChain, Chainflip y 10+ plataformas.",
-    "features.f4.t": "🕵️ Privacidad total",
-    "features.f4.d": "Protegido con pruebas ZK y liquidación confidencial. Sin KYC.",
-    "features.f5.t": "📈 Trading avanzado",
-    "features.f5.d": "Spot, perpetuos hasta 40x y acciones tokenizadas.",
-    "features.f6.t": "💸 Pagos divididos",
-    "features.f6.d": "Un depósito, hasta 100 pagos confidenciales.",
-    "products.title": "Productos",
-    "products.p1.t": "Intercambio instantáneo",
-    "products.p1.d": "Intercambia 10,000+ activos en 68 redes",
-    "products.p2.t": "App Web",
-    "products.p2.d": "Interfaz fácil para intercambios y pagos",
-    "products.p3.t": "Plataforma de trading",
-    "products.p3.d": "Spot, perpetuos y acciones tokenizadas",
-    "stats.s1": "Volumen liquidado",
-    "stats.s2": "Redes activas",
-    "stats.s3": "Liquidación media",
-    "stats.s4": "En el mercado",
-    "footer.disclaimer": "⚠️ Aviso: El trading cripto conlleva riesgos. Página de afiliados.",
-    "footer.ref": "Código de afiliado"
-  },
-  de: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Private Cross-Chain-Swaps auf 68+ Chains — Kein KYC, non-custodial",
-    "hero.cta1": "Jetzt tauschen →",
-    "hero.cta2": "App öffnen",
-    "features.title": "Warum InstaSwap?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Deine Schlüssel, deine Krypto. Keine Konten, alles on-chain.",
-    "features.f2.t": "🌐 68 Chains",
-    "features.f2.d": "Tausche BTC, ETH, XMR, SOL nativ über 68 Chains.",
-    "features.f3.t": "⚡ Beste Kurse",
-    "features.f3.d": "Routing über THORChain, Chainflip & 10+ Plattformen.",
-    "features.f4.t": "🕵️ Volle Privatsphäre",
-    "features.f4.d": "Gesichert durch ZK-Beweise und vertrauliche Abwicklung. Kein KYC.",
-    "features.f5.t": "📈 Fortgeschrittener Handel",
-    "features.f5.d": "Spot, Perpetuals bis 40x und tokenisierte Aktien.",
-    "features.f6.t": "💸 Split-Zahlungen",
-    "features.f6.d": "Eine Einzahlung, bis zu 100 vertrauliche Auszahlungen.",
-    "products.title": "Produkte",
-    "products.p1.t": "Sofort-Tausch",
-    "products.p1.d": "Tausche 10.000+ Assets über 68 Chains",
-    "products.p2.t": "Web-App",
-    "products.p2.d": "Einfache Oberfläche für Swaps und Zahlungen",
-    "products.p3.t": "Handelsplattform",
-    "products.p3.d": "Spot, Perpetuals und tokenisierte Aktien",
-    "stats.s1": "Abgewickeltes Volumen",
-    "stats.s2": "Live-Chains",
-    "stats.s3": "Durchschn. Abwicklung",
-    "stats.s4": "Im Markt",
-    "footer.disclaimer": "⚠️ Haftungsausschluss: Krypto-Handel birgt Risiken. Affiliate-Seite.",
-    "footer.ref": "Affiliate-Code"
-  },
-  ru: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Приватные кросс-чейн обмены на 68+ сетях — Без KYC, некастодиальный",
-    "hero.cta1": "Начать обмен →",
-    "hero.cta2": "Открыть приложение",
-    "features.title": "Почему InstaSwap?",
-    "features.f1.t": "🛡️ Некастодиальный",
-    "features.f1.d": "Ваши ключи, ваша крипта. Без аккаунтов, всё on-chain.",
-    "features.f2.t": "🌐 68 сетей",
-    "features.f2.d": "Обмен BTC, ETH, XMR, SOL нативно через 68 сетей.",
-    "features.f3.t": "⚡ Лучшие курсы",
-    "features.f3.d": "Маршрутизация через THORChain, Chainflip и 10+ площадок.",
-    "features.f4.t": "🕵️ Полная приватность",
-    "features.f4.d": "Защита ZK-доказательствами и конфиденциальные расчёты. Без KYC.",
-    "features.f5.t": "📈 Продвинутая торговля",
-    "features.f5.d": "Спот, перпетуалы до 40x и токенизированные акции.",
-    "features.f6.t": "💸 Раздельные платежи",
-    "features.f6.d": "Один депозит, до 100 конфиденциальных выплат.",
-    "products.title": "Продукты",
-    "products.p1.t": "Мгновенный обмен",
-    "products.p1.d": "Обмен 10 000+ активов через 68 сетей",
-    "products.p2.t": "Веб-приложение",
-    "products.p2.d": "Простой интерфейс для обменов и платежей",
-    "products.p3.t": "Торговая платформа",
-    "products.p3.d": "Спот, перпетуалы и токенизированные акции",
-    "stats.s1": "Объём расчётов",
-    "stats.s2": "Активных сетей",
-    "stats.s3": "Средн. расчёт",
-    "stats.s4": "На рынке",
-    "footer.disclaimer": "⚠️ Отказ: Торговля криптой связана с рисками. Партнёрская страница.",
-    "footer.ref": "Партнёрский код"
-  },
-  zh: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "支持68+链的隐私跨链兑换 — 无需KYC，非托管",
-    "hero.cta1": "开始兑换 →",
-    "hero.cta2": "打开应用",
-    "features.title": "为什么选择 InstaSwap？",
-    "features.f1.t": "🛡️ 非托管",
-    "features.f1.d": "你的密钥，你的加密资产。无账户，全部链上结算。",
-    "features.f2.t": "🌐 68条链",
-    "features.f2.d": "跨68条链原生兑换 BTC、ETH、XMR、SOL。",
-    "features.f3.t": "⚡ 最优汇率",
-    "features.f3.d": "通过 THORChain、Chainflip 及10+平台路由。",
-    "features.f4.t": "🕵️ 完全隐私",
-    "features.f4.d": "ZK证明保护与保密结算。无需KYC。",
-    "features.f5.t": "📈 高级交易",
-    "features.f5.d": "现货、最高40倍永续合约和代币化股票。",
-    "features.f6.t": "💸 分拆支付",
-    "features.f6.d": "一次存款，最多100笔保密支付。",
-    "products.title": "产品",
-    "products.p1.t": "即时兑换",
-    "products.p1.d": "跨68链兑换10,000+资产",
-    "products.p2.t": "网页应用",
-    "products.p2.d": "简便的兑换与支付界面",
-    "products.p3.t": "交易平台",
-    "products.p3.d": "现货、永续合约和代币化股票",
-    "stats.s1": "已结算量",
-    "stats.s2": "活跃链",
-    "stats.s3": "平均结算",
-    "stats.s4": "市场经验",
-    "footer.disclaimer": "⚠️ 免责声明：加密货币交易有风险。此为联盟营销页面。",
-    "footer.ref": "联盟代码"
-  },
-  ja: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "68以上のチェーンでプライベートクロスチェーンスワップ — KYC不要、非カストディアル",
-    "hero.cta1": "スワップ開始 →",
-    "hero.cta2": "アプリを開く",
-    "features.title": "InstaSwapを選ぶ理由",
-    "features.f1.t": "🛡️ 非カストディアル",
-    "features.f1.d": "鍵はあなたのもの。アカウント不要、すべてオンチェーン決済。",
-    "features.f2.t": "🌐 68チェーン",
-    "features.f2.d": "68チェーンでBTC、ETH、XMR、SOLをネイティブ交換。",
-    "features.f3.t": "⚡ 最良レート",
-    "features.f3.d": "THORChain、Chainflip、10以上のプラットフォーム経由。",
-    "features.f4.t": "🕵️ 完全プライバシー",
-    "features.f4.d": "ZK証明と機密決済で保護。KYC不要。",
-    "features.f5.t": "📈 高度な取引",
-    "features.f5.d": "現物、最大40倍の無期限契約、トークン化株式。",
-    "features.f6.t": "💸 分割支払い",
-    "features.f6.d": "1回の入金で最大100件の機密支払い。",
-    "products.title": "製品",
-    "products.p1.t": "インスタントスワップ",
-    "products.p1.d": "68チェーンで10,000以上の資産を交換",
-    "products.p2.t": "Webアプリ",
-    "products.p2.d": "スワップと支払いの簡単インターフェース",
-    "products.p3.t": "取引プラットフォーム",
-    "products.p3.d": "現物、無期限契約、トークン化株式",
-    "stats.s1": "決済済み量",
-    "stats.s2": "稼働チェーン",
-    "stats.s3": "平均決済",
-    "stats.s4": "市場実績",
-    "footer.disclaimer": "⚠️ 免責事項：暗号資産取引にはリスクがあります。アフィリエイトページです。",
-    "footer.ref": "アフィリエイトコード"
-  },
-  ko: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "68개 이상 체인에서 프라이빗 크로스체인 스왑 — KYC 없음, 비수탁",
-    "hero.cta1": "스왑 시작 →",
-    "hero.cta2": "앱 열기",
-    "features.title": "InstaSwap을 선택하는 이유",
-    "features.f1.t": "🛡️ 비수탁",
-    "features.f1.d": "당신의 키, 당신의 암호화폐. 계정 없음, 모두 온체인 정산.",
-    "features.f2.t": "🌐 68개 체인",
-    "features.f2.d": "68개 체인에서 BTC, ETH, XMR, SOL 네이티브 스왑.",
-    "features.f3.t": "⚡ 최적 환율",
-    "features.f3.d": "THORChain, Chainflip 및 10개 이상 플랫폼 라우팅.",
-    "features.f4.t": "🕵️ 완전한 프라이버시",
-    "features.f4.d": "ZK 증명과 기밀 정산으로 보호. KYC 없음.",
-    "features.f5.t": "📈 고급 거래",
-    "features.f5.d": "현물, 최대 40배 무기한 계약, 토큰화 주식.",
-    "features.f6.t": "💸 분할 결제",
-    "features.f6.d": "한 번 입금으로 최대 100건 기밀 결제.",
-    "products.title": "제품",
-    "products.p1.t": "즉시 스왑",
-    "products.p1.d": "68개 체인에서 10,000개 이상 자산 스왑",
-    "products.p2.t": "웹 앱",
-    "products.p2.d": "스왑과 결제를 위한 간편한 인터페이스",
-    "products.p3.t": "거래 플랫폼",
-    "products.p3.d": "현물, 무기한 계약, 토큰화 주식",
-    "stats.s1": "결제된 거래량",
-    "stats.s2": "활성 체인",
-    "stats.s3": "평균 결제",
-    "stats.s4": "시장 경력",
-    "footer.disclaimer": "⚠️ 면책: 암호화폐 거래에는 위험이 따릅니다. 제휴 마케팅 페이지입니다.",
-    "footer.ref": "제휴 코드"
-  },
-  tr: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "68+ zincirde özel cross-chain takas — KYC yok, saklamasız",
-    "hero.cta1": "Takasa başla →",
-    "hero.cta2": "Uygulamayı aç",
-    "features.title": "Neden InstaSwap?",
-    "features.f1.t": "🛡️ Saklamasız",
-    "features.f1.d": "Anahtarlar senin, kripto senin. Hesap yok, her işlem zincir üstü.",
-    "features.f2.t": "🌐 68 Zincir",
-    "features.f2.d": "68 zincirde BTC, ETH, XMR, SOL'u yerel olarak takas et.",
-    "features.f3.t": "⚡ En iyi oranlar",
-    "features.f3.d": "THORChain, Chainflip ve 10+ platform üzerinden yönlendirme.",
-    "features.f4.t": "🕵️ Tam gizlilik",
-    "features.f4.d": "ZK kanıtları ve gizli mutabakat ile korunur. KYC yok.",
-    "features.f5.t": "📈 Gelişmiş ticaret",
-    "features.f5.d": "Spot, 40x'e kadar vadeli ve tokenize hisseler.",
-    "features.f6.t": "💸 Bölünmüş ödemeler",
-    "features.f6.d": "Tek yatırma, 100'e kadar gizli ödeme.",
-    "products.title": "Ürünler",
-    "products.p1.t": "Anında Takas",
-    "products.p1.d": "68 zincirde 10.000+ varlık takas et",
-    "products.p2.t": "Web Uygulaması",
-    "products.p2.d": "Takas ve ödemeler için kolay arayüz",
-    "products.p3.t": "Ticaret Platformu",
-    "products.p3.d": "Spot, vadeli ve tokenize hisseler",
-    "stats.s1": "Mutabık hacim",
-    "stats.s2": "Aktif zincir",
-    "stats.s3": "Ort. mutabakat",
-    "stats.s4": "Piyasada",
-    "footer.disclaimer": "⚠️ Feragatname: Kripto ticareti risk taşır. Bu bir ortaklık pazarlama sayfasıdır.",
-    "footer.ref": "Ortaklık kodu"
-  },
-  pt: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Trocas privadas cross-chain em 68+ redes — Sem KYC, não custodial",
-    "hero.cta1": "Começar →",
-    "hero.cta2": "Abrir app",
-    "features.title": "Por que InstaSwap?",
-    "features.f1.t": "🛡️ Não custodial",
-    "features.f1.d": "Suas chaves, sua cripto. Sem contas, tudo on-chain.",
-    "features.f2.t": "🌐 68 Redes",
-    "features.f2.d": "Troque BTC, ETH, XMR, SOL nativamente em 68 redes.",
-    "features.f3.t": "⚡ Melhores taxas",
-    "features.f3.d": "Rotas via THORChain, Chainflip e 10+ plataformas.",
-    "features.f4.t": "🕵️ Privacidade total",
-    "features.f4.d": "Protegido por provas ZK e liquidação confidencial. Sem KYC.",
-    "features.f5.t": "📈 Trading avançado",
-    "features.f5.d": "Spot, perpétuos até 40x e ações tokenizadas.",
-    "features.f6.t": "💸 Pagamentos divididos",
-    "features.f6.d": "Um depósito, até 100 pagamentos confidenciais.",
-    "products.title": "Produtos",
-    "products.p1.t": "Troca instantânea",
-    "products.p1.d": "Troque 10.000+ ativos em 68 redes",
-    "products.p2.t": "App Web",
-    "products.p2.d": "Interface fácil para trocas e pagamentos",
-    "products.p3.t": "Plataforma de trading",
-    "products.p3.d": "Spot, perpétuos e ações tokenizadas",
-    "stats.s1": "Volume liquidado",
-    "stats.s2": "Redes ativas",
-    "stats.s3": "Liquidação média",
-    "stats.s4": "No mercado",
-    "footer.disclaimer": "⚠️ Aviso: Trading de cripto envolve riscos. Página de afiliados.",
-    "footer.ref": "Código de afiliado"
-  },
-  hi: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "68+ चेन पर निजी क्रॉस-चेन स्वैप — KYC नहीं, नॉन-कस्टोडियल",
-    "hero.cta1": "स्वैप शुरू करें →",
-    "hero.cta2": "ऐप खोलें",
-    "features.title": "InstaSwap क्यों?",
-    "features.f1.t": "🛡️ नॉन-कस्टोडियल",
-    "features.f1.d": "आपकी चाबियाँ, आपकी क्रिप्टो। कोई खाता नहीं, सब ऑन-चेन।",
-    "features.f2.t": "🌐 68 चेन",
-    "features.f2.d": "68 चेन पर BTC, ETH, XMR, SOL को मूल रूप में स्वैप करें।",
-    "features.f3.t": "⚡ सर्वोत्तम दरें",
-    "features.f3.d": "THORChain, Chainflip और 10+ प्लेटफॉर्म के माध्यम से रूटिंग।",
-    "features.f4.t": "🕵️ पूर्ण गोपनीयता",
-    "features.f4.d": "ZK प्रमाण और गोपनीय निपटान द्वारा सुरक्षित। KYC नहीं।",
-    "features.f5.t": "📈 उन्नत ट्रेडिंग",
-    "features.f5.d": "स्पॉट, 40x तक परपेचुअल और टोकनयुक्त शेयर।",
-    "features.f6.t": "💸 विभाजित भुगतान",
-    "features.f6.d": "एक जमा, 100 तक गोपनीय भुगतान।",
-    "products.title": "उत्पाद",
-    "products.p1.t": "तत्काल स्वैप",
-    "products.p1.d": "68 चेन पर 10,000+ संपत्ति स्वैप करें",
-    "products.p2.t": "वेब ऐप",
-    "products.p2.d": "स्वैप और भुगतान के लिए आसान इंटरफ़ेस",
-    "products.p3.t": "ट्रेडिंग प्लेटफॉर्म",
-    "products.p3.d": "स्पॉट, परपेचुअल और टोकनयुक्त शेयर",
-    "stats.s1": "निपटाया वॉल्यूम",
-    "stats.s2": "सक्रिय चेन",
-    "stats.s3": "औसत निपटान",
-    "stats.s4": "बाजार में",
-    "footer.disclaimer": "⚠️ अस्वीकरण: क्रिप्टो ट्रेडिंग में जोखिम है। यह एक एफिलिएट पेज है।",
-    "footer.ref": "एफिलिएट कोड"
-  },
-  ur: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "68+ چینز پر نجی کراس چین سویپ — KYC نہیں، نان کسٹوڈیل",
-    "hero.cta1": "سویپ شروع کریں ←",
-    "hero.cta2": "ایپ کھولیں",
-    "features.title": "InstaSwap کیوں؟",
-    "features.f1.t": "🛡️ نان کسٹوڈیل",
-    "features.f1.d": "آپ کی چابیاں، آپ کی کرپٹو۔ کوئی اکاؤنٹ نہیں، سب آن چین۔",
-    "features.f2.t": "🌐 68 چینز",
-    "features.f2.d": "68 چینز پر BTC، ETH، XMR، SOL کو مقامی طور پر سویپ کریں۔",
-    "features.f3.t": "⚡ بہترین ریٹس",
-    "features.f3.d": "THORChain، Chainflip اور 10+ پلیٹ فارمز کے ذریعے روٹنگ۔",
-    "features.f4.t": "🕵️ مکمل رازداری",
-    "features.f4.d": "ZK ثبوت اور خفیہ تصفیہ سے محفوظ۔ KYC نہیں۔",
-    "features.f5.t": "📈 جدید ٹریڈنگ",
-    "features.f5.d": "اسپاٹ، 40x تک پرپیچوئل اور ٹوکنائزڈ اسٹاکس۔",
-    "features.f6.t": "💸 منقسم ادائیگیاں",
-    "features.f6.d": "ایک جمع، 100 تک خفیہ ادائیگیاں۔",
-    "products.title": "مصنوعات",
-    "products.p1.t": "فوری سویپ",
-    "products.p1.d": "68 چینز پر 10,000+ اثاثے سویپ کریں",
-    "products.p2.t": "ویب ایپ",
-    "products.p2.d": "سویپ اور ادائیگیوں کے لیے آسان انٹرفیس",
-    "products.p3.t": "ٹریڈنگ پلیٹ فارم",
-    "products.p3.d": "اسپاٹ، پرپیچوئل اور ٹوکنائزڈ اسٹاکس",
-    "stats.s1": "تصفیہ شدہ والیوم",
-    "stats.s2": "فعال چینز",
-    "stats.s3": "اوسط تصفیہ",
-    "stats.s4": "مارکیٹ میں",
-    "footer.disclaimer": "⚠️ دستبرداری: کرپٹو ٹریڈنگ میں خطرات ہیں۔ یہ ایک ایفیلیئٹ صفحہ ہے۔",
-    "footer.ref": "ایفیلیئٹ کوڈ"
-  },
-  fa: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "تبادل خصوصی کراس‌چین در 68+ شبکه — بدون KYC، غیر حضانتی",
-    "hero.cta1": "شروع تبادل →",
-    "hero.cta2": "باز کردن برنامه",
-    "features.title": "چرا InstaSwap؟",
-    "features.f1.t": "🛡️ غیر حضانتی",
-    "features.f1.d": "کلیدهای شما، رمزارز شما. بدون حساب، همه در زنجیره.",
-    "features.f2.t": "🌐 68 شبکه",
-    "features.f2.d": "BTC، ETH، XMR، SOL را به صورت بومی در 68 شبکه مبادله کنید.",
-    "features.f3.t": "⚡ بهترین نرخ‌ها",
-    "features.f3.d": "مسیریابی از طریق THORChain، Chainflip و 10+ پلتفرم.",
-    "features.f4.t": "🕵️ حریم خصوصی کامل",
-    "features.f4.d": "محافظت با اثبات ZK و تسویه محرمانه. بدون KYC.",
-    "features.f5.t": "📈 معاملات پیشرفته",
-    "features.f5.d": "اسپات، پرپچوال تا 40x و سهام توکنیزه.",
-    "features.f6.t": "💸 پرداخت‌های تقسیمی",
-    "features.f6.d": "یک واریز، تا 100 پرداخت محرمانه.",
-    "products.title": "محصولات",
-    "products.p1.t": "تبادل فوری",
-    "products.p1.d": "مبادله 10,000+ دارایی در 68 شبکه",
-    "products.p2.t": "وب اپلیکیشن",
-    "products.p2.d": "رابط آسان برای تبادل و پرداخت",
-    "products.p3.t": "پلتفرم معاملاتی",
-    "products.p3.d": "اسپات، پرپچوال و سهام توکنیزه",
-    "stats.s1": "حجم تسویه شده",
-    "stats.s2": "شبکه‌های فعال",
-    "stats.s3": "تسویه متوسط",
-    "stats.s4": "در بازار",
-    "footer.disclaimer": "⚠️ سلب مسئولیت: معامله رمزارز دارای ریسک است. این یک صفحه بازاریابی وابسته است.",
-    "footer.ref": "کد وابسته"
-  },
-  id: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Swap cross-chain privat di 68+ jaringan — Tanpa KYC, non-kustodial",
-    "hero.cta1": "Mulai Swap →",
-    "hero.cta2": "Buka Aplikasi",
-    "features.title": "Mengapa InstaSwap?",
-    "features.f1.t": "🛡️ Non-kustodial",
-    "features.f1.d": "Kunci Anda, kripto Anda. Tanpa akun, semua on-chain.",
-    "features.f2.t": "🌐 68 Jaringan",
-    "features.f2.d": "Swap BTC, ETH, XMR, SOL secara native di 68 jaringan.",
-    "features.f3.t": "⚡ Rate Terbaik",
-    "features.f3.d": "Routing via THORChain, Chainflip & 10+ platform.",
-    "features.f4.t": "🕵️ Privasi Penuh",
-    "features.f4.d": "Dilindungi bukti ZK dan penyelesaian rahasia. Tanpa KYC.",
-    "features.f5.t": "📈 Trading Lanjutan",
-    "features.f5.d": "Spot, perpetual hingga 40x, dan saham ter-tokenisasi.",
-    "features.f6.t": "💸 Pembayaran Terbagi",
-    "features.f6.d": "Satu deposit, hingga 100 pembayaran rahasia.",
-    "products.title": "Produk",
-    "products.p1.t": "Swap Instan",
-    "products.p1.d": "Swap 10.000+ aset di 68 jaringan",
-    "products.p2.t": "Aplikasi Web",
-    "products.p2.d": "Antarmuka mudah untuk swap dan pembayaran",
-    "products.p3.t": "Platform Trading",
-    "products.p3.d": "Spot, perpetual, dan saham ter-tokenisasi",
-    "stats.s1": "Volume diselesaikan",
-    "stats.s2": "Jaringan aktif",
-    "stats.s3": "Penyelesaian rata-rata",
-    "stats.s4": "Di pasar",
-    "footer.disclaimer": "⚠️ Penafian: Trading kripto mengandung risiko. Ini halaman afiliasi.",
-    "footer.ref": "Kode afiliasi"
-  },
-  it: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Scambi privati cross-chain su 68+ reti — Senza KYC, non-custodial",
-    "hero.cta1": "Inizia →",
-    "hero.cta2": "Apri app",
-    "features.title": "Perché InstaSwap?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Le tue chiavi, la tua crypto. Nessun account, tutto on-chain.",
-    "features.f2.t": "🌐 68 Reti",
-    "features.f2.d": "Scambia BTC, ETH, XMR, SOL nativamente su 68 reti.",
-    "features.f3.t": "⚡ Migliori tariffe",
-    "features.f3.d": "Routing via THORChain, Chainflip e 10+ piattaforme.",
-    "features.f4.t": "🕵️ Privacy totale",
-    "features.f4.d": "Protetto da prove ZK e regolamento confidenziale. Senza KYC.",
-    "features.f5.t": "📈 Trading avanzato",
-    "features.f5.d": "Spot, perpetui fino a 40x e azioni tokenizzate.",
-    "features.f6.t": "💸 Pagamenti divisi",
-    "features.f6.d": "Un deposito, fino a 100 pagamenti confidenziali.",
-    "products.title": "Prodotti",
-    "products.p1.t": "Scambio istantaneo",
-    "products.p1.d": "Scambia 10.000+ asset su 68 reti",
-    "products.p2.t": "App Web",
-    "products.p2.d": "Interfaccia semplice per scambi e pagamenti",
-    "products.p3.t": "Piattaforma di trading",
-    "products.p3.d": "Spot, perpetui e azioni tokenizzate",
-    "stats.s1": "Volume regolato",
-    "stats.s2": "Reti attive",
-    "stats.s3": "Regolamento medio",
-    "stats.s4": "Sul mercato",
-    "footer.disclaimer": "⚠️ Avviso: Il trading crypto comporta rischi. Pagina di affiliazione.",
-    "footer.ref": "Codice affiliazione"
-  },
-  nl: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Privé cross-chain swaps op 68+ chains — Geen KYC, non-custodial",
-    "hero.cta1": "Begin met swappen →",
-    "hero.cta2": "App openen",
-    "features.title": "Waarom InstaSwap?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Jouw sleutels, jouw crypto. Geen accounts, alles on-chain.",
-    "features.f2.t": "🌐 68 Chains",
-    "features.f2.d": "Swap BTC, ETH, XMR, SOL native op 68 chains.",
-    "features.f3.t": "⚡ Beste tarieven",
-    "features.f3.d": "Routing via THORChain, Chainflip & 10+ platforms.",
-    "features.f4.t": "🕵️ Volledige privacy",
-    "features.f4.d": "Beveiligd met ZK-bewijzen en vertrouwelijke afwikkeling. Geen KYC.",
-    "features.f5.t": "📈 Geavanceerd handelen",
-    "features.f5.d": "Spot, perpetuals tot 40x en getokeniseerde aandelen.",
-    "features.f6.t": "💸 Gesplitste betalingen",
-    "features.f6.d": "Eén storting, tot 100 vertrouwelijke betalingen.",
-    "products.title": "Producten",
-    "products.p1.t": "Directe swap",
-    "products.p1.d": "Swap 10.000+ assets op 68 chains",
-    "products.p2.t": "Web-app",
-    "products.p2.d": "Eenvoudige interface voor swaps en betalingen",
-    "products.p3.t": "Handelsplatform",
-    "products.p3.d": "Spot, perpetuals en getokeniseerde aandelen",
-    "stats.s1": "Afgewikkeld volume",
-    "stats.s2": "Actieve chains",
-    "stats.s3": "Gem. afwikkeling",
-    "stats.s4": "In de markt",
-    "footer.disclaimer": "⚠️ Disclaimer: Crypto-handel brengt risico's met zich mee. Affiliate-pagina.",
-    "footer.ref": "Affiliate-code"
-  },
-  pl: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Prywatne swapy cross-chain w 68+ sieciach — Bez KYC, non-custodial",
-    "hero.cta1": "Zacznij wymianę →",
-    "hero.cta2": "Otwórz aplikację",
-    "features.title": "Dlaczego InstaSwap?",
-    "features.f1.t": "🛡️ Non-custodial",
-    "features.f1.d": "Twoje klucze, twoje krypto. Bez kont, wszystko on-chain.",
-    "features.f2.t": "🌐 68 sieci",
-    "features.f2.d": "Wymieniaj BTC, ETH, XMR, SOL natywnie w 68 sieciach.",
-    "features.f3.t": "⚡ Najlepsze kursy",
-    "features.f3.d": "Routing przez THORChain, Chainflip i 10+ platform.",
-    "features.f4.t": "🕵️ Pełna prywatność",
-    "features.f4.d": "Chronione dowodami ZK i poufną rozliczalnością. Bez KYC.",
-    "features.f5.t": "📈 Zaawansowany handel",
-    "features.f5.d": "Spot, perpetuały do 40x i tokenizowane akcje.",
-    "features.f6.t": "💸 Płatności dzielone",
-    "features.f6.d": "Jeden depozyt, do 100 poufnych płatności.",
-    "products.title": "Produkty",
-    "products.p1.t": "Natychmiastowa wymiana",
-    "products.p1.d": "Wymień 10 000+ aktywów w 68 sieciach",
-    "products.p2.t": "Aplikacja webowa",
-    "products.p2.d": "Prosty interfejs do wymiany i płatności",
-    "products.p3.t": "Platforma handlowa",
-    "products.p3.d": "Spot, perpetuały i tokenizowane akcje",
-    "stats.s1": "Rozliczony wolumen",
-    "stats.s2": "Aktywne sieci",
-    "stats.s3": "Średnie rozliczenie",
-    "stats.s4": "Na rynku",
-    "footer.disclaimer": "⚠️ Zastrzeżenie: Handel krypto wiąże się z ryzykiem. Strona afiliacyjna.",
-    "footer.ref": "Kod afiliacyjny"
-  },
-  vi: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Hoán đổi cross-chain riêng tư trên 68+ mạng — Không KYC, không lưu ký",
-    "hero.cta1": "Bắt đầu hoán đổi →",
-    "hero.cta2": "Mở ứng dụng",
-    "features.title": "Tại sao chọn InstaSwap?",
-    "features.f1.t": "🛡️ Không lưu ký",
-    "features.f1.d": "Khóa của bạn, crypto của bạn. Không tài khoản, tất cả on-chain.",
-    "features.f2.t": "🌐 68 mạng",
-    "features.f2.d": "Hoán đổi BTC, ETH, XMR, SOL gốc trên 68 mạng.",
-    "features.f3.t": "⚡ Tỷ giá tốt nhất",
-    "features.f3.d": "Định tuyến qua THORChain, Chainflip và 10+ nền tảng.",
-    "features.f4.t": "🕵️ Riêng tư hoàn toàn",
-    "features.f4.d": "Bảo vệ bằng bằng chứng ZK và thanh toán bảo mật. Không KYC.",
-    "features.f5.t": "📈 Giao dịch nâng cao",
-    "features.f5.d": "Spot, vĩnh viễn lên đến 40x và cổ phiếu token hóa.",
-    "features.f6.t": "💸 Thanh toán chia nhỏ",
-    "features.f6.d": "Một lần nạp, tối đa 100 khoản thanh toán bảo mật.",
-    "products.title": "Sản phẩm",
-    "products.p1.t": "Hoán đổi tức thì",
-    "products.p1.d": "Hoán đổi 10.000+ tài sản trên 68 mạng",
-    "products.p2.t": "Ứng dụng web",
-    "products.p2.d": "Giao diện dễ dùng cho hoán đổi và thanh toán",
-    "products.p3.t": "Nền tảng giao dịch",
-    "products.p3.d": "Spot, vĩnh viễn và cổ phiếu token hóa",
-    "stats.s1": "Khối lượng đã thanh toán",
-    "stats.s2": "Mạng hoạt động",
-    "stats.s3": "Thanh toán TB",
-    "stats.s4": "Trên thị trường",
-    "footer.disclaimer": "⚠️ Miễn trừ: Giao dịch crypto có rủi ro. Đây là trang tiếp thị liên kết.",
-    "footer.ref": "Mã liên kết"
-  },
-  th: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "สวอปข้ามเชนส่วนตัวบน 68+ เครือข่าย — ไม่ต้อง KYC, ไม่เก็บรักษา",
-    "hero.cta1": "เริ่มสวอป →",
-    "hero.cta2": "เปิดแอป",
-    "features.title": "ทำไมต้อง InstaSwap?",
-    "features.f1.t": "🛡️ ไม่เก็บรักษา",
-    "features.f1.d": "กุญแจของคุณ คริปโตของคุณ ไม่มีบัญชี ทุกอย่างบนเชน",
-    "features.f2.t": "🌐 68 เครือข่าย",
-    "features.f2.d": "สวอป BTC, ETH, XMR, SOL แบบเนทีฟบน 68 เครือข่าย",
-    "features.f3.t": "⚡ อัตราที่ดีที่สุด",
-    "features.f3.d": "กำหนดเส้นทางผ่าน THORChain, Chainflip และ 10+ แพลตฟอร์ม",
-    "features.f4.t": "🕵️ ความเป็นส่วนตัวเต็ม",
-    "features.f4.d": "ป้องกันด้วยหลักฐาน ZK และการชำระแบบลับ ไม่ต้อง KYC",
-    "features.f5.t": "📈 การเทรดขั้นสูง",
-    "features.f5.d": "สปอต เพอร์พีชวลถึง 40x และหุ้นโทเคน",
-    "features.f6.t": "💸 การชำระแบบแบ่ง",
-    "features.f6.d": "ฝากครั้งเดียว จ่ายได้ถึง 100 รายการอย่างลับ",
-    "products.title": "ผลิตภัณฑ์",
-    "products.p1.t": "สวอปทันที",
-    "products.p1.d": "สวอป 10,000+ สินทรัพย์บน 68 เครือข่าย",
-    "products.p2.t": "เว็บแอป",
-    "products.p2.d": "อินเทอร์เฟซง่ายสำหรับสวอปและชำระเงิน",
-    "products.p3.t": "แพลตฟอร์มเทรด",
-    "products.p3.d": "สปอต เพอร์พีชวล และหุ้นโทเคน",
-    "stats.s1": "ปริมาณที่ชำระ",
-    "stats.s2": "เครือข่ายที่ใช้งาน",
-    "stats.s3": "การชำระเฉลี่ย",
-    "stats.s4": "ในตลาด",
-    "footer.disclaimer": "⚠️ ข้อจำกัด: การเทรดคริปโตมีความเสี่ยง นี่คือหน้า affiliate",
-    "footer.ref": "รหัส affiliate"
-  },
-  uk: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "Приватні крос-чейн обміни на 68+ мережах — Без KYC, некастодіальний",
-    "hero.cta1": "Почати обмін →",
-    "hero.cta2": "Відкрити додаток",
-    "features.title": "Чому InstaSwap?",
-    "features.f1.t": "🛡️ Некастодіальний",
-    "features.f1.d": "Ваші ключі, ваша крипта. Без акаунтів, все on-chain.",
-    "features.f2.t": "🌐 68 мереж",
-    "features.f2.d": "Обмінюйте BTC, ETH, XMR, SOL нативно через 68 мереж.",
-    "features.f3.t": "⚡ Найкращі курси",
-    "features.f3.d": "Маршрутизація через THORChain, Chainflip та 10+ платформ.",
-    "features.f4.t": "🕵️ Повна приватність",
-    "features.f4.d": "Захищено ZK-доказами та конфіденційними розрахунками. Без KYC.",
-    "features.f5.t": "📈 Просунута торгівля",
-    "features.f5.d": "Спот, перпетуали до 40x та токенізовані акції.",
-    "features.f6.t": "💸 Розділені платежі",
-    "features.f6.d": "Один депозит, до 100 конфіденційних виплат.",
-    "products.title": "Продукти",
-    "products.p1.t": "Миттєвий обмін",
-    "products.p1.d": "Обмін 10 000+ активів через 68 мереж",
-    "products.p2.t": "Веб-додаток",
-    "products.p2.d": "Простий інтерфейс для обмінів і платежів",
-    "products.p3.t": "Торгова платформа",
-    "products.p3.d": "Спот, перпетуали та токенізовані акції",
-    "stats.s1": "Обсяг розрахунків",
-    "stats.s2": "Активних мереж",
-    "stats.s3": "Середній розрахунок",
-    "stats.s4": "На ринку",
-    "footer.disclaimer": "⚠️ Відмова: Торгівля криптою пов'язана з ризиками. Партнерська сторінка.",
-    "footer.ref": "Партнерський код"
-  },
-  he: {
-    "hero.title": "🔒 InstaSwap",
-    "hero.tagline": "החלפות חוצות-שרשרת פרטיות ב-68+ רשתות — ללא KYC, ללא משמורת",
-    "hero.cta1": "התחל להחליף →",
-    "hero.cta2": "פתח אפליקציה",
-    "features.title": "למה InstaSwap?",
-    "features.f1.t": "🛡️ ללא משמורת",
-    "features.f1.d": "המפתחות שלך, הקריפטו שלך. ללא חשבונות, הכל on-chain.",
-    "features.f2.t": "🌐 68 רשתות",
-    "features.f2.d": "החלף BTC, ETH, XMR, SOL באופן מקורי ב-68 רשתות.",
-    "features.f3.t": "⚡ התעריפים הטובים ביותר",
-    "features.f3.d": "ניתוב דרך THORChain, Chainflip ו-10+ פלטפורמות.",
-    "features.f4.t": "🕵️ פרטיות מלאה",
-    "features.f4.d": "מאובטח בהוכחות ZK והסדר סודי. ללא KYC.",
-    "features.f5.t": "📈 מסחר מתקדם",
-    "features.f5.d": "ספוט, פרפטואלים עד 40x ומניות מטוקנות.",
-    "features.f6.t": "💸 תשלומים מפוצלים",
-    "features.f6.d": "הפקדה אחת, עד 100 תשלומים סודיים.",
-    "products.title": "מוצרים",
-    "products.p1.t": "החלפה מיידית",
-    "products.p1.d": "החלף 10,000+ נכסים ב-68 רשתות",
-    "products.p2.t": "אפליקציית ווב",
-    "products.p2.d": "ממשק קל להחלפות ותשלומים",
-    "products.p3.t": "פלטפורמת מסחר",
-    "products.p3.d": "ספוט, פרפטואלים ומניות מטוקנות",
-    "stats.s1": "נפח שהוסדר",
-    "stats.s2": "רשתות פעילות",
-    "stats.s3": "הסדר ממוצע",
-    "stats.s4": "בשוק",
-    "footer.disclaimer": "⚠️ כתב ויתור: מסחר בקריפטו כרוך בסיכון. זהו דף שיווק שותפים.",
-    "footer.ref": "קוד שותף"
-  }
-};
+          <a class="btn btn-secondary"
+             href="#swap" data-i18n="hero.secondary">How it works ↓</a>
+        </div>
 
-const rtlLangs = ['ar', 'ur', 'fa', 'he'];
+        <div class="trust-note" data-i18n="hero.note">
+          Independent affiliate website · Transactions take place through InstaSwap
+        </div>
+      </div>
+    </section>
 
-function setLanguage(lang) {
-  const t = translations[lang] || translations.en;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
-  });
-  document.documentElement.lang = lang;
-  document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
-  localStorage.setItem('preferredLang', lang);
-  document.getElementById('langSelect').value = lang;
-}
+    <section id="swap">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="swap.title">Start your crypto swap</h2>
+          <p data-i18n="swap.description">
+            Use the exchange service below or open InstaSwap directly.
+          </p>
+        </div>
 
-document.getElementById('langSelect').addEventListener('change', (e) => {
-  setLanguage(e.target.value);
-});
+        <div class="swap-panel">
+          <h3 data-i18n="swap.panelTitle">Crypto exchange</h3>
+          <p data-i18n="swap.panelDescription">
+            Review supported assets, network compatibility, rates and fees
+            on the provider's interface before proceeding.
+          </p>
 
-// كشف لغة المتصفح تلقائيًا
-(function init() {
-  const saved = localStorage.getItem('preferredLang');
-  if (saved && translations[saved]) {
-    setLanguage(saved);
-  } else {
-    const browserLang = (navigator.language || 'en').split('-')[0];
-    setLanguage(translations[browserLang] ? browserLang : 'en');
-  }
-})();
-</script>
+          <div class="widget-placeholder" id="instaswap-widget-container">
+            <p data-i18n="swap.widgetNote">
+              If the embedded exchange is unavailable, use the button below.
+            </p>
+            <a class="btn btn-primary"
+               href="https://trade.instaswap.com/?ref=0X0PUTVJ"
+               target="_blank" rel="nofollow sponsored noopener"
+               data-i18n="swap.button">Open InstaSwap Trade ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="features.title">A simpler way to explore swaps</h2>
+          <p data-i18n="features.description">
+            Useful information before you choose a cryptocurrency exchange.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-icon">🔄</div>
+            <h3 data-i18n="features.f1.title">Cross-chain options</h3>
+            <p data-i18n="features.f1.text">
+              Explore supported assets and networks on the provider's platform.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🔎</div>
+            <h3 data-i18n="features.f2.title">Check transaction details</h3>
+            <p data-i18n="features.f2.text">
+              Review the quoted rate, network, fees and expected transaction
+              details before confirming.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🛡️</div>
+            <h3 data-i18n="features.f3.title">Stay in control</h3>
+            <p data-i18n="features.f3.text">
+              Never share your seed phrase or private keys with a website
+              or anyone claiming to provide support.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="products.title">Explore InstaSwap</h2>
+          <p data-i18n="products.description">
+            Choose a destination to learn more or access the provider's service.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-icon">💱</div>
+            <h3 data-i18n="products.p1.title">Instant Swap</h3>
+            <p data-i18n="products.p1.text">
+              Visit the main exchange website and check available swap options.
+            </p>
+            <a class="btn btn-secondary"
+               href="https://instaswap.com/?affiliate=0X0PUTVJ"
+               target="_blank" rel="nofollow sponsored noopener"
+               data-i18n="products.p1.button">Visit website ↗</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">📱</div>
+            <h3 data-i18n="products.p2.title">Web App</h3>
+            <p data-i18n="products.p2.text">
+              Open the InstaSwap application to explore its available features.
+            </p>
+            <a class="btn btn-secondary"
+               href="https://app.instaswap.com/?affiliate=0X0PUTVJ"
+               target="_blank" rel="nofollow sponsored noopener"
+               data-i18n="products.p2.button">Open app ↗</a>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">📊</div>
+            <h3 data-i18n="products.p3.title">Trading</h3>
+            <p data-i18n="products.p3.text">
+              Visit the trading interface and review the products available
+              in your jurisdiction.
+            </p>
+            <a class="btn btn-secondary"
+               href="https://trade.instaswap.com/?ref=0X0PUTVJ"
+               target="_blank" rel="nofollow sponsored noopener"
+               data-i18n="products.p3.button">Open trading ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="risk">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="risk.title">Important information</h2>
+        </div>
+
+        <div class="notice" data-i18n="risk.text">
+          Cryptocurrency transactions involve risk, including price volatility,
+          network delays, irreversible transfers and possible loss of funds.
+          Check the destination address, asset and network carefully.
+          BitcoinCard.cash is an independent affiliate website, not the
+          exchange provider. Product availability, fees, rates and transaction
+          terms are determined by the provider. Affiliate links may generate
+          compensation for the website at no additional cost to you.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>BitcoinCard.cash</strong>
+        <p data-i18n="footer.description">
+          Independent website. Not the official InstaSwap website.
+        </p>
+        <p>
+          © <span id="year"></span> BitcoinCard.cash
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#risk" data-i18n="footer.risk">Risk disclosure</a>
+        <a href="mailto:contact@bitcoincard.cash"
+           data-i18n="footer.contact">Contact</a>
+        <a href="https://instaswap.com/?affiliate=0X0PUTVJ"
+           target="_blank" rel="nofollow sponsored noopener"
+           data-i18n="footer.provider">InstaSwap ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const AFFILIATE_ID = "0X0PUTVJ";
+
+    const translations = {
+      en: {
+        "nav.cta": "Open Swap ↗",
+        "hero.eyebrow": "YOUR CRYPTO. YOUR CHOICE.",
+        "hero.line1": "Explore crypto",
+        "hero.line2": "swaps with ease.",
+        "hero.description": "Discover cryptocurrency exchange options through InstaSwap. Compare the available transaction details before confirming a swap.",
+        "hero.primary": "Explore Swaps ↗",
+        "hero.secondary": "How it works ↓",
+        "hero.note": "Independent affiliate website · Transactions take place through InstaSwap",
+        "swap.title": "Start your crypto swap",
+        "swap.description": "Use the exchange service below or open InstaSwap directly.",
+        "swap.panelTitle": "Crypto exchange",
+        "swap.panelDescription": "Review supported assets, network compatibility, rates and fees on the provider's interface before proceeding.",
+        "swap.widgetNote": "If the embedded exchange is unavailable, use the button below.",
+        "swap.button": "Open InstaSwap Trade ↗",
+        "features.title": "A simpler way to explore swaps",
+        "features.description": "Useful information before you choose a cryptocurrency exchange.",
+        "features.f1.title": "Cross-chain options",
+        "features.f1.text": "Explore supported assets and networks on the provider's platform.",
+        "features.f2.title": "Check transaction details",
+        "features.f2.text": "Review the quoted rate, network, fees and expected transaction details before confirming.",
+        "features.f3.title": "Stay in control",
+        "features.f3.text": "Never share your seed phrase or private keys with a website or anyone claiming to provide support.",
+        "products.title": "Explore InstaSwap",
+        "products.description": "Choose a destination to learn more or access the provider's service.",
+        "products.p1.title": "Instant Swap",
+        "products.p1.text": "Visit the main exchange website and check available swap options.",
+        "products.p1.button": "Visit website ↗",
+        "products.p2.title": "Web App",
+        "products.p2.text": "Open the InstaSwap application to explore its available features.",
+        "products.p2.button": "Open app ↗",
+        "products.p3.title": "Trading",
+        "products.p3.text": "Visit the trading interface and review the products available in your jurisdiction.",
+        "products.p3.button": "Open trading ↗",
+        "risk.title": "Important information",
+        "risk.text": "Cryptocurrency transactions involve risk, including price volatility, network delays, irreversible transfers and possible loss of funds. Check the destination address, asset and network carefully. BitcoinCard.cash is an independent affiliate website, not the exchange provider. Product availability, fees, rates and transaction terms are determined by the provider. Affiliate links may generate compensation for the website at no additional cost to you.",
+        "footer.description": "Independent website. Not the official InstaSwap website.",
+        "footer.risk": "Risk disclosure",
+        "footer.contact": "Contact",
+        "footer.provider": "InstaSwap ↗"
+      },
+
+      ar: {
+        "nav.cta": "ابدأ التبادل ↗",
+        "hero.eyebrow": "عملاتك الرقمية، اختيارك",
+        "hero.line1": "اكتشف تبادل",
+        "hero.line2": "العملات الرقمية بسهولة",
+        "hero.description": "استكشف خيارات تبادل العملات الرقمية عبر InstaSwap، وراجع تفاصيل العملية قبل تأكيد أي معاملة.",
+        "hero.primary": "استكشف التبادل ↗",
+        "hero.secondary": "كيف يعمل؟ ↓",
+        "hero.note": "موقع مستقل للتسويق بالعمولة · تتم المعاملات عبر InstaSwap",
+        "swap.title": "ابدأ تبادل العملات الرقمية",
+        "swap.description": "استخدم خدمة التبادل أو افتح منصة InstaSwap مباشرة.",
+        "swap.panelTitle": "تبادل العملات الرقمية",
+        "swap.panelDescription": "راجع العملات والشبكات والأسعار والرسوم في واجهة مزود الخدمة قبل المتابعة.",
+        "swap.widgetNote": "إذا لم تظهر أداة التبادل المدمجة، استخدم الزر أدناه.",
+        "swap.button": "افتح InstaSwap Trade ↗",
+        "features.title": "طريقة أبسط لاستكشاف التبادل",
+        "features.description": "معلومات مفيدة قبل اختيار خدمة تبادل العملات الرقمية.",
+        "features.f1.title": "التبادل بين الشبكات",
+        "features.f1.text": "استكشف العملات والشبكات المدعومة على منصة مزود الخدمة.",
+        "features.f2.title": "راجع تفاصيل العملية",
+        "features.f2.text": "تحقق من سعر الصرف والشبكة والرسوم وتفاصيل المعاملة قبل التأكيد.",
+        "features.f3.title": "حافظ على أمانك",
+        "features.f3.text": "لا تشارك العبارة السرية أو المفاتيح الخاصة مع أي موقع أو شخص يدعي تقديم الدعم.",
+        "products.title": "استكشف InstaSwap",
+        "products.description": "اختر الخدمة التي تريد زيارتها.",
+        "products.p1.title": "التبادل الفوري",
+        "products.p1.text": "افتح الموقع الرئيسي واطلع على خيارات التبادل المتاحة.",
+        "products.p1.button": "زيارة الموقع ↗",
+        "products.p2.title": "تطبيق الويب",
+        "products.p2.text": "افتح تطبيق InstaSwap لاستكشاف الميزات المتاحة.",
+        "products.p2.button": "فتح التطبيق ↗",
+        "products.p3.title": "التداول",
+        "products.p3.text": "افتح واجهة التداول وتحقق من المنتجات المتاحة في بلدك.",
+        "products.p3.button": "فتح التداول ↗",
+        "risk.title": "معلومات مهمة",
+        "risk.text": "تنطوي معاملات العملات الرقمية على مخاطر، منها تقلب الأسعار وتأخر الشبكات والتحويلات غير القابلة للعكس واحتمال خسارة الأموال. تحقق من عنوان الوجهة والعملة والشبكة بعناية. BitcoinCard.cash موقع مستقل للتسويق بالعمولة وليس منصة التبادل نفسها. يحدد مزود الخدمة العملات المتاحة والرسوم والأسعار وشروط المعاملات. قد يحصل الموقع على عمولة من روابط الإحالة دون تكلفة إضافية عليك.",
+        "footer.description": "موقع مستقل، وليس الموقع الرسمي لـ InstaSwap.",
+        "footer.risk": "إفصاح المخاطر",
+        "footer.contact": "اتصل بنا",
+        "footer.provider": "InstaSwap ↗"
+      },
+
+      fr: {
+        "nav.cta": "Échanger ↗",
+        "hero.eyebrow": "VOTRE CRYPTO, VOTRE CHOIX",
+        "hero.line1": "Explorez les échanges",
+        "hero.line2": "de cryptomonnaies.",
+        "hero.description": "Découvrez les options d'échange via InstaSwap et vérifiez les détails de chaque transaction avant confirmation.",
+        "hero.primary": "Explorer les échanges ↗",
+        "hero.secondary": "Comment ça marche ? ↓",
+        "hero.note": "Site affilié indépendant · Transactions effectuées via InstaSwap",
+        "swap.title": "Commencez votre échange",
+        "swap.description": "Utilisez le service d'échange ou ouvrez directement InstaSwap.",
+        "swap.panelTitle": "Échange crypto",
+        "swap.panelDescription": "Vérifiez les actifs, réseaux, taux et frais sur l'interface du fournisseur.",
+        "swap.widgetNote": "Si le widget ne s'affiche pas, utilisez le bouton ci-dessous.",
+        "swap.button": "Ouvrir InstaSwap Trade ↗",
+        "features.title": "Explorez les échanges simplement",
+        "features.description": "Des informations utiles avant de choisir un service.",
+        "features.f1.title": "Options cross-chain",
+        "features.f1.text": "Consultez les actifs et réseaux pris en charge par le fournisseur.",
+        "features.f2.title": "Vérifiez les détails",
+        "features.f2.text": "Contrôlez le taux, le réseau, les frais et les détails de la transaction.",
+        "features.f3.title": "Protégez vos actifs",
+        "features.f3.text": "Ne partagez jamais votre phrase de récupération ni vos clés privées.",
+        "products.title": "Découvrez InstaSwap",
+        "products.description": "Choisissez le service à consulter.",
+        "products.p1.title": "Échange instantané",
+        "products.p1.text": "Consultez les options d'échange du site principal.",
+        "products.p1.button": "Visiter le site ↗",
+        "products.p2.title": "Application web",
+        "products.p2.text": "Ouvrez l'application InstaSwap.",
+        "products.p2.button": "Ouvrir l'application ↗",
+        "products.p3.title": "Trading",
+        "products.p3.text": "Vérifiez les produits disponibles dans votre pays.",
+        "products.p3.button": "Ouvrir le trading ↗",
+        "risk.title": "Informations importantes",
+        "risk.text": "Les cryptomonnaies comportent des risques : volatilité, retards réseau, transferts irréversibles et pertes possibles. Vérifiez soigneusement l'adresse, l'actif et le réseau. BitcoinCard.cash est un site affilié indépendant, pas le fournisseur d'échange. Les disponibilités, frais, taux et conditions dépendent du fournisseur. Les liens affiliés peuvent générer une commission sans frais supplémentaires pour vous.",
+        "footer.description": "Site indépendant, non officiel d'InstaSwap.",
+        "footer.risk": "Risques",
+        "footer.contact": "Contact",
+        "footer.provider": "InstaSwap ↗"
+      },
+
+      es: {
+        "nav.cta": "Intercambiar ↗",
+        "hero.eyebrow": "TU CRIPTO, TU ELECCIÓN",
+        "hero.line1": "Explora intercambios",
+        "hero.line2": "de criptomonedas.",
+        "hero.description": "Descubre opciones de intercambio mediante InstaSwap y revisa los detalles antes de confirmar.",
+        "hero.primary": "Explorar intercambios ↗",
+        "hero.secondary": "Cómo funciona ↓",
+        "hero.note": "Sitio afiliado independiente · Las transacciones se realizan mediante InstaSwap",
+        "swap.title": "Empieza tu intercambio",
+        "swap.description": "Usa el servicio de intercambio o abre InstaSwap directamente.",
+        "swap.panelTitle": "Intercambio cripto",
+        "swap.panelDescription": "Revisa los activos, redes, tipos de cambio y comisiones en la plataforma del proveedor.",
+        "swap.widgetNote": "Si el widget no aparece, utiliza el botón siguiente.",
+        "swap.button": "Abrir InstaSwap Trade ↗",
+        "features.title": "Explora intercambios fácilmente",
+        "features.description": "Información útil antes de elegir un servicio.",
+        "features.f1.title": "Opciones cross-chain",
+        "features.f1.text": "Consulta los activos y las redes compatibles con el proveedor.",
+        "features.f2.title": "Revisa los detalles",
+        "features.f2.text": "Comprueba el tipo de cambio, la red, las comisiones y la transacción.",
+        "features.f3.title": "Protege tus activos",
+        "features.f3.text": "Nunca compartas tu frase de recuperación ni tus claves privadas.",
+        "products.title": "Explora InstaSwap",
+        "products.description": "Elige el servicio que deseas visitar.",
+        "products.p1.title": "Intercambio instantáneo",
+        "products.p1.text": "Consulta las opciones del sitio principal.",
+        "products.p1.button": "Visitar sitio ↗",
+        "products.p2.title": "Aplicación web",
+        "products.p2.text": "Abre la aplicación de InstaSwap.",
+        "products.p2.button": "Abrir aplicación ↗",
+        "products.p3.title": "Trading",
+        "products.p3.text": "Comprueba qué productos están disponibles en tu país.",
+        "products.p3.button": "Abrir trading ↗",
+        "risk.title": "Información importante",
+        "risk.text": "Las criptomonedas conllevan riesgos, como volatilidad, retrasos de red, transferencias irreversibles y posibles pérdidas. Verifica la dirección, el activo y la red. BitcoinCard.cash es un sitio afiliado independiente, no el proveedor de intercambio. La disponibilidad, las comisiones, los tipos de cambio y las condiciones dependen del proveedor. Los enlaces de afiliado pueden generar una comisión sin coste adicional para ti.",
+        "footer.description": "Sitio independiente, no oficial de InstaSwap.",
+        "footer.risk": "Riesgos",
+        "footer.contact": "Contacto",
+        "footer.provider": "InstaSwap ↗"
+      }
+    };
+
+    const rtlLanguages = ["ar"];
+    const langSelect = document.getElementById("langSelect");
+
+    function setLanguage(lang) {
+      const selected = translations[lang] ? lang : "en";
+      const dictionary = translations[selected];
+
+      document.documentElement.lang = selected;
+      document.documentElement.dir =
+        rtlLanguages.includes(selected) ? "rtl" : "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.getAttribute("data-i18n");
+        if (dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      langSelect.value = selected;
+
+      try {
+        localStorage.setItem("bitcoincard-language", selected);
+      } catch (error) {
+        // Language selection still works if storage is unavailable.
+      }
+    }
+
+    langSelect.addEventListener("change", event => {
+      setLanguage(event.target.value);
+    });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    try {
+      const savedLanguage = localStorage.getItem("bitcoincard-language");
+      const browserLanguage = (navigator.language || "en")
+        .split("-")[0];
+
+      setLanguage(
+        savedLanguage && translations[savedLanguage]
+          ? savedLanguage
+          : (translations[browserLanguage] ? browserLanguage : "en")
+      );
+    } catch (error) {
+      setLanguage("en");
+    }
+
+    /*
+      InstaSwap widget integration:
+      Enable this only after confirming the current official embed code
+      and domain authorization in your InstaSwap partner dashboard.
+
+      Example based on the integration snippet supplied by the site owner:
+
+      const script = document.createElement("script");
+      script.src = "https://web.instaswap.com/widget.js";
+      script.async = true;
+
+      script.onload = function () {
+        if (window.InstaswapWidget) {
+          window.InstaswapWidget.init({
+            affiliateId: AFFILIATE_ID,
+            type: "floating",
+            horizontalPosition: "right",
+            verticalPosition: "top",
+            previewText: "Trade Now"
+          });
+        }
+      };
+
+      document.body.appendChild(script);
+    */
+  </script>
 </body>
 </html>
